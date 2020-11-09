@@ -1,0 +1,35 @@
+[{
+    "red":"facebook",
+    "url":"https://www.facebook.com/",
+    "icono":"fab fa-facebook-f"
+},{
+    "red":"instagram",
+    "url":"https://www.instagram.com/",
+    "icono":"fab fa-instagram"
+},{
+    "red":"twitter",
+    "url":"https://www.twitter.com/",
+    "icono":"fab fa-twitter"
+},{
+    "red":"youtube",
+    "url":"https://www.youtube.com/",
+    "icono":"fab fa-youtube"
+},{
+    "red":"snapchat",
+    "url":"https://www.snapchat.com/",
+    "icono":"fab fa-snapchat-ghost"
+}
+]
+
+[
+"suramerica",
+"colombia",
+"peru",
+"argentina",
+"chile",
+"brasil",
+"ecuador",
+"venezuela",
+"paraguay",
+"bolivia"
+]
