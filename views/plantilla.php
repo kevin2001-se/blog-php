@@ -265,6 +265,8 @@ $totalPaginas = ceil(count($totalArticulos) / 5);
 
 					$validarRuta = "categorias";
 					break;
+				}else{
+					$validarRuta = "buscador";
 				}
 			}
 		}
@@ -297,7 +299,9 @@ $totalPaginas = ceil(count($totalArticulos) / 5);
 
 		if ($validarRuta == "categorias") {
 			include "pages/categorias.php";
-		} else if ($validarRuta == 'articulos') {
+		} else if ($validarRuta == 'buscador') {
+			include "pages/buscador.php";
+		}else if ($validarRuta == 'articulos') {
 			include "pages/articulos.php";
 		} else if (is_numeric($rutas[0]) && $rutas[0] <= $totalPaginas) {
 			include "pages/inicio.php";
