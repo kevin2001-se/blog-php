@@ -1,5 +1,10 @@
 <?php
 /*======================================
+Remplazar
+=======================================*/
+$remplazar = array(1,2,3,4,5,6,7,8,9,0,'á','é','í','ó','ú','ñ',' ');
+$remplazado =array('_','_','_','_','_','_','_','_','_','a','e','i','o','u','_','_');
+/*======================================
 Seleccionar Los articulos de la Categoria Especifica
 =======================================*/
 if (isset($rutas[0])) {
@@ -9,6 +14,8 @@ if (isset($rutas[0])) {
     $totalPaginas = ceil(count($totalArticulos) / 5);
 
     $articulosDestacados = ControladorBlog::ctrArticuloDestacados("id_cat", $articulos[0]["id_cat"]);
+
+    $anuncios = ControladorBlog::ctrAnuncios("categorias");
 }
 
 /*======================================
@@ -123,7 +130,7 @@ CONTENIDO CATEGORIA
                     $tags = json_decode($articulos[0]["p_claves_categorias"]);
 
                     foreach ($tags as $key => $value) { ?>
-                        <a href="#<?php echo $value; ?>" class="btn btn-secondary btn-sm m-1"><?php echo $value; ?></a>
+                        <a href="<?php echo $blog["dominio"].str_replace($remplazar, $remplazado,$value); ?>" class="btn btn-secondary btn-sm m-1"><?php echo $value; ?></a>
                     <?php }
                     ?>
 
@@ -137,14 +144,14 @@ CONTENIDO CATEGORIA
 
                     <?php foreach ($articulosDestacados as $key => $value) : 
                     
-                    $categorias = ControladorBlog::ctrMostrarCategorias("id_categoria" , $value["id_cat"]);
+                    $categoriaA = ControladorBlog::ctrMostrarCategorias("id_categoria" , $value["id_cat"]);
                         
                     ?>
                         <div class="d-flex my-3">
 
                             <div class="w-100 w-xl-50 pr-3 pt-2">
 
-                                <a href="<?php echo $blog["dominio"].$categorias[0]["ruta_categoria"]."/".$value["ruta_articulo"]; ?>">
+                                <a href="<?php echo $blog["dominio"].$categoriaA[0]["ruta_categoria"]."/".$value["ruta_articulo"]; ?>">
 
                                     <img src="<?php echo $blog["dominio"].$value["portada_articulo"]; ?>" alt="<?php echo $value["titulo_articulo"]; ?>" class="img-fluid">
 
@@ -154,7 +161,7 @@ CONTENIDO CATEGORIA
 
                             <div>
 
-                                <a href="<?php echo $blog["dominio"].$categorias[0]["ruta_categoria"]."/".$value["ruta_articulo"]; ?>" class="text-secondary">
+                                <a href="<?php echo $blog["dominio"].$categoriaA[0]["ruta_categoria"]."/".$value["ruta_articulo"]; ?>" class="text-secondary">
 
                                     <p class="small"><?php echo substr($value["descripcion_articulo"],0,-150)."..."; ?></p>
 
@@ -170,23 +177,9 @@ CONTENIDO CATEGORIA
 
                 <!-- PUBLICIDAD -->
 
-                <div class="mb-4">
-
-                    <img src="<?php echo $blog["dominio"]; ?>views/img/ad03.png" class="img-fluid">
-
-                </div>
-
-                <div class="my-4">
-
-                    <img src="<?php echo $blog["dominio"]; ?>views/img/ad02.jpg" class="img-fluid">
-
-                </div>
-
-                <div class="my-4">
-
-                    <img src="<?php echo $blog["dominio"]; ?>views/img/ad05.png" class="img-fluid">
-
-                </div>
+                <?php foreach($anuncios as $key => $value): ?>
+                    <?php echo $value["codigo_anuncio"]; ?>
+                <?php endforeach ?>
 
             </div>
 

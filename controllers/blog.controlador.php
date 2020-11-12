@@ -179,4 +179,49 @@ class ControladorBlog
 
         return $respuesta;
     }
+    /*======================================
+    Buscador
+    =======================================*/
+    static public function ctrBuscador($busqueda, $desde, $cantidad)
+    {
+        $tabla1 = "categorias";
+        $tabla2 = "articulos";
+
+        $respuesta = ModeloBlog::mdlBuscador($tabla1, $tabla2, $busqueda, $desde, $cantidad);
+
+        return $respuesta;
+    }
+    /*======================================
+    Total Buscador
+    =======================================*/
+    static public function ctrTotalBuscador($busqueda)
+    {
+        $tabla = "articulos";
+
+        $respuesta = ModeloBlog::mdlTotalBuscador($tabla, $busqueda);
+
+        return $respuesta;
+    }
+    /*======================================
+    Traer Anuncios
+    =======================================*/
+    static public function ctrAnuncios($valor)
+    {
+        $tabla = "anuncios";
+
+        $respuesta = ModeloBlog::mdlTraerAnuncios($tabla ,$valor);
+
+        return $respuesta;
+    }
+    /*======================================
+    Traer Banner
+    =======================================*/
+    static public function ctrTraerBanner($valor)
+    {
+        $tabla = "banner";
+
+        $respuesta = ModeloBlog::mdlTraerBanner($tabla ,$valor);
+
+        return $respuesta;
+    }
 }

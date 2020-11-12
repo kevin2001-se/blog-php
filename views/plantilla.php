@@ -1,7 +1,7 @@
 <?php
 
 $blog = ControladorBlog::ctrMostrarBlog();
-$categorias = ControladorBlog::ctrMostrarCategorias(null , null);
+$categorias = ControladorBlog::ctrMostrarCategorias(null, null);
 $articulos = ControladorBlog::ctrMostrarConInnerJoin(0, 5, null, null);
 $totalArticulos = ControladorBlog::ctrMostrarTotalArticulos(null, null);
 
@@ -265,7 +265,11 @@ $totalPaginas = ceil(count($totalArticulos) / 5);
 
 					$validarRuta = "categorias";
 					break;
-				}else{
+				} else if ($rutas[0] == "sobre-mi") {
+
+					$validarRuta = "sobre-mi";
+					break;
+				} else {
 					$validarRuta = "buscador";
 				}
 			}
@@ -299,9 +303,11 @@ $totalPaginas = ceil(count($totalArticulos) / 5);
 
 		if ($validarRuta == "categorias") {
 			include "pages/categorias.php";
-		} else if ($validarRuta == 'buscador') {
+		}else if ($validarRuta == 'buscador') {
 			include "pages/buscador.php";
-		}else if ($validarRuta == 'articulos') {
+		} else if ($validarRuta == 'sobre-mi') {
+			include "pages/sobre-mi.php";
+		} else if ($validarRuta == 'articulos') {
 			include "pages/articulos.php";
 		} else if (is_numeric($rutas[0]) && $rutas[0] <= $totalPaginas) {
 			include "pages/inicio.php";

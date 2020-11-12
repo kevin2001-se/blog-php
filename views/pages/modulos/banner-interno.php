@@ -1,3 +1,6 @@
+<?php
+$banner = ControladorBlog::ctrTraerBanner("interno");
+?>
 <!--=====================================
 BANNER
 ======================================-->
@@ -5,32 +8,33 @@ BANNER
 <div class="bannerEstatico d-none d-md-block"></div>
 
 <section class="jd-slider fade-slider">
-	
+
 	<div class="slide-inner">
-		
+
 		<ul class="slide-area">
-			
-			<li>
+			<?php foreach ($banner as $key => $value) : ?>
+				<li>
 
-				<div class="d-none d-md-block textoBanner">
-					
-					<h1>Watch how we work</h1>
-					<h5>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit ea quidem</h5>
+					<div class="d-none d-md-block textoBanner">
 
-				</div>
-				
-				<img src="<?php echo $blog["dominio"]; ?>views/img/bannerGrande01.jpg" class="img-fluid">
+						<h1><?php echo $value["titulo_banner"]; ?></h1>
+						<h5><?php echo $value["descripcion_banner"]; ?></h5>
 
-			</li>		
+					</div>
+
+					<img src="<?php echo $blog["dominio"].$value["img_banner"]; ?>" class="img-fluid">
+
+				</li>
+			<?php endforeach ?>
 
 		</ul>
 
 	</div>
 
 	<div class="controller d-none">
-		
+
 		<a class="auto" href="#">
-			
+
 			<i class="fas fa-play fa-xs"></i>
 			<i class="fas fa-pause fa-xs"></i>
 

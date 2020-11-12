@@ -189,4 +189,66 @@ class ModeloBlog
 
         $stmt = null;
     }
+    /*======================================
+    Modelo Buscador
+    =======================================*/
+    static public function mdlBuscador($tabla1, $tabla2, $busqueda, $desde, $cantidad)
+    {
+        $stmt = Conexion::Conectar()->prepare("SELECT $tabla1.*, $tabla2.*, 
+        DATE_FORMAT(fecha_articulo, '%d.%m.%Y') AS fecha_articulo FROM $tabla1 INNER JOIN $tabla2 
+        ON $tabla1.id_categoria = $tabla2.id_cat WHERE titulo_articulo LIKE '%$busqueda%' 
+        OR descripcion_articulo LIKE '%$busqueda%' OR p_claves_articulo like '%$busqueda%'  
+        OR ruta_articulo like '%$busqueda%' ORDER BY $tabla2.id_Articulo DESC LIMIT $desde, $cantidad");
+
+        $stmt -> execute();
+
+        return $stmt -> fetchAll();
+
+        $stmt = null;
+    }
+    /*======================================
+    Modelo Total Buscador
+    =======================================*/
+    static public function mdlTotalBuscador($tabla, $busqueda)
+    {
+        $stmt =  Conexion::Conectar()->prepare("SELECT * FROM $tabla WHERE titulo_articulo LIKE '%$busqueda%' OR 
+        descripcion_articulo LIKE '%$busqueda%' OR p_claves_articulo like '%$busqueda%' OR ruta_articulo like '%$busqueda%'");
+
+        $stmt -> execute();
+
+        return $stmt -> fetchAll();
+
+        $stmt = null;
+    }
+    /*======================================
+    Modelo Traer Anuncios
+    =======================================*/
+    static public function mdlTraerAnuncios($tabla ,$valor)
+    {
+        $stmt = Conexion::Conectar()->prepare("SELECT * FROM $tabla WHERE pagina_anuncio = :pagina_anuncio");
+
+        $stmt -> bindParam(":pagina_anuncio", $valor, PDO::PARAM_STR);
+
+        $stmt -> execute();
+
+        return $stmt-> fetchAll();
+
+        $stmt = null;
+    }
+
+    /*======================================
+    Modelo Traer Anuncios
+    =======================================*/
+    static public function mdlTraerBanner($tabla ,$valor)
+    {
+        $stmt = Conexion::Conectar()->prepare("SELECT * FROM $tabla WHERE pagina_banner = :pagina_anuncio");
+
+        $stmt -> bindParam(":pagina_anuncio", $valor, PDO::PARAM_STR);
+
+        $stmt -> execute();
+
+        return $stmt-> fetchAll();
+
+        $stmt = null;
+    }
 }

@@ -6,6 +6,7 @@ if (isset($rutas[0]) && is_numeric($rutas[0])) {
 }
 
 $articulosDestacados = ControladorBlog::ctrArticuloDestacados(null, null);
+$anuncios = ControladorBlog::ctrAnuncios("inicio");
 ?>
 
 <!--=====================================
@@ -88,14 +89,14 @@ CONTENIDO INICIO
 
                     <?php foreach ($articulosDestacados as $key => $value) : 
                     
-                    $categorias = ControladorBlog::ctrMostrarCategorias("id_categoria" , $value["id_cat"]);
+                    $categoriasA = ControladorBlog::ctrMostrarCategorias("id_categoria" , $value["id_cat"]);
                         
                     ?>
                         <div class="d-flex my-3">
 
                             <div class="w-100 w-xl-50 pr-3 pt-2">
 
-                                <a href="<?php echo $blog["dominio"].$categorias[0]["ruta_categoria"]."/".$value["ruta_articulo"]; ?>">
+                                <a href="<?php echo $blog["dominio"].$categoriasA[0]["ruta_categoria"]."/".$value["ruta_articulo"]; ?>">
 
                                     <img src="<?php echo $blog["dominio"].$value["portada_articulo"]; ?>" alt="<?php echo $value["titulo_articulo"]; ?>" class="img-fluid">
 
@@ -105,7 +106,7 @@ CONTENIDO INICIO
 
                             <div>
 
-                                <a href="<?php echo $blog["dominio"].$categorias[0]["ruta_categoria"]."/".$value["ruta_articulo"]; ?>" class="text-secondary">
+                                <a href="<?php echo $blog["dominio"].$categoriasA[0]["ruta_categoria"]."/".$value["ruta_articulo"]; ?>" class="text-secondary">
 
                                     <p class="small"><?php echo substr($value["descripcion_articulo"],0,-150)."..."; ?></p>
 
@@ -120,23 +121,9 @@ CONTENIDO INICIO
 
                 <!-- PUBLICIDAD -->
 
-                <div class="my-4">
-
-                    <img src="<?php echo $blog["dominio"]; ?>views/img/ad01.jpg" class="img-fluid">
-
-                </div>
-
-                <div class="my-4">
-
-                    <img src="<?php echo $blog["dominio"]; ?>views/img/ad02.jpg" class="img-fluid">
-
-                </div>
-
-                <div class="my-4">
-
-                    <img src="<?php echo $blog["dominio"]; ?>views/img/ad05.png" class="img-fluid">
-
-                </div>
+                <?php foreach($anuncios as $key => $value): ?>
+                    <?php echo $value["codigo_anuncio"]; ?>
+                <?php endforeach ?>
 
             </div>
 

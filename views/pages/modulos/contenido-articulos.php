@@ -1,4 +1,9 @@
 <?php
+/*======================================
+Remplazar
+=======================================*/
+$remplazar = array(1,2,3,4,5,6,7,8,9,0,'á','é','í','ó','ú','ñ',' ');
+$remplazado =array('_','_','_','_','_','_','_','_','_','a','e','i','o','u','_','_');
 if (isset($rutas[1])) {
 	$articulo = ControladorBlog::ctrMostrarConInnerJoin(0, 1, "ruta_articulo", $rutas[1]);
 	$totalArticulos = ControladorBlog::ctrMostrarTotalArticulos("id_cat", $articulo[0]["id_cat"]);
@@ -6,6 +11,8 @@ if (isset($rutas[1])) {
 
 	$actualizarVistaArticulo = ControladorBlog::ctrActualizarVista($rutas[1]);
 
+	$anuncios = ControladorBlog::ctrAnuncios("articulos");
+	$anuncios_responsive = ControladorBlog::ctrAnuncios("articulos-responsive");
 }
 /*======================================
 Función Limitar foreach
@@ -114,27 +121,13 @@ CONTENIDO ARTÍCULO
 
 						<h4>Etiquetas</h4>
 
-						<a href="#suramerica" class="btn btn-secondary btn-sm m-1">suramerica</a>
+						<?php
+						$tags = json_decode($articulo[0]["p_claves_categorias"]);
 
-						<a href="#colombia" class="btn btn-secondary btn-sm m-1">colombia</a>
-
-						<a href="#peru" class="btn btn-secondary btn-sm m-1">peru</a>
-
-						<a href="#argentina" class="btn btn-secondary btn-sm m-1">argentina</a>
-
-						<a href="#chile" class="btn btn-secondary btn-sm m-1">chile</a>
-
-						<a href="#brasil" class="btn btn-secondary btn-sm m-1">brasil</a>
-
-						<a href="#ecuador" class="btn btn-secondary btn-sm m-1">ecuador</a>
-
-						<a href="#venezuela" class="btn btn-secondary btn-sm m-1">venezuela</a>
-
-						<a href="#paraguay" class="btn btn-secondary btn-sm m-1">paraguay</a>
-
-						<a href="#uruguay" class="btn btn-secondary btn-sm m-1">uruguay</a>
-
-						<a href="#bolivia" class="btn btn-secondary btn-sm m-1">bolivia</a>
+						foreach ($tags as $key => $value) { ?>
+							<a href="<?php echo $blog["dominio"] . str_replace($remplazar, $remplazado, $value); ?>" class="btn btn-secondary btn-sm m-1"><?php echo $value; ?></a>
+						<?php }
+						?>
 
 					</div>
 
@@ -355,9 +348,7 @@ CONTENIDO ARTÍCULO
 					</form>
 
 					<!-- PUBLICIDAD -->
-
-					<img src="<?php echo $blog["dominio"]; ?>views/img/ad01.jpg" class="img-fluid my-3 d-block d-md-none" width="100%">
-
+					<?php echo $anuncios_responsive[0]["codigo_anuncio"] ?>
 
 				</div>
 
@@ -378,9 +369,9 @@ CONTENIDO ARTÍCULO
 
 							<div class="w-100 w-xl-50 pr-3 pt-2">
 
-								<a href="<?php echo $blog["dominio"].$articulo[0]["ruta_categoria"]."/".$value["ruta_articulo"]; ?>">
+								<a href="<?php echo $blog["dominio"] . $articulo[0]["ruta_categoria"] . "/" . $value["ruta_articulo"]; ?>">
 
-									<img src="<?php echo $blog["dominio"].$value["portada_articulo"]; ?>" alt="<?php echo $value["titulo_articulo"]; ?>" class="img-fluid">
+									<img src="<?php echo $blog["dominio"] . $value["portada_articulo"]; ?>" alt="<?php echo $value["titulo_articulo"]; ?>" class="img-fluid">
 
 								</a>
 
@@ -388,9 +379,9 @@ CONTENIDO ARTÍCULO
 
 							<div>
 
-								<a href="<?php echo $blog["dominio"].$articulo[0]["ruta_categoria"]."/".$value["ruta_articulo"]; ?>" class="text-secondary">
+								<a href="<?php echo $blog["dominio"] . $articulo[0]["ruta_categoria"] . "/" . $value["ruta_articulo"]; ?>" class="text-secondary">
 
-									<p class="small"><?php echo substr($value["descripcion_articulo"],0,-150)."..."; ?></p>
+									<p class="small"><?php echo substr($value["descripcion_articulo"], 0, -150) . "..."; ?></p>
 
 								</a>
 
@@ -402,23 +393,9 @@ CONTENIDO ARTÍCULO
 				</div>
 				<!-- PUBLICIDAD -->
 
-				<div class="mb-4">
-
-					<img src="<?php echo $blog["dominio"]; ?>views/img/ad03.png" class="img-fluid">
-
-				</div>
-
-				<div class="my-4">
-
-					<img src="<?php echo $blog["dominio"]; ?>views/img/ad02.jpg" class="img-fluid">
-
-				</div>
-
-				<div class="my-4">
-
-					<img src="<?php echo $blog["dominio"]; ?>views/img/ad06.png" class="img-fluid">
-
-				</div>
+				<?php foreach($anuncios as $key => $value): ?>
+                    <?php echo $value["codigo_anuncio"]; ?>
+                <?php endforeach ?>
 
 			</div>
 
